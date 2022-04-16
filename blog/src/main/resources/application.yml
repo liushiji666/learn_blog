@@ -1,0 +1,10 @@
+spring:
+  thymeleaf:
+    mode: HTML
+  profiles:
+    active: dev
+  mvc:
+    static-path-pattern: /static/**
+
+
+comment.avatar: D:\JAVA练习\blog\src\main\resources\static\images/images/wechat.jpg

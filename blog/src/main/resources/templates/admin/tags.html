@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-with, initial-scale=1.0">
+    <title>分类管理</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
+</head>
+<body>
+
+<!--导航-->
+<nav th:replace="admin/_fragments :: menu(3)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item">管理后台</h2>
+            <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>博客</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="tag icon"></i>标签</a>
+            <div class="right m-item m-mobile-hide menu">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <img class="ui avatar image" src="http://unsplash.it/100/100?image=1000">
+                        世纪哥
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item">注销</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+<div class="ui attached pointing menu">
+    <div class="ui container">
+        <div class="right menu">
+            <a href="#" th:href="@{/admin/types/input}" class="item">新增</a>
+            <a href="#" th:href="@{/admin/types}" class="active teal item">列表</a>
+        </div>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="m-container-small m-padded-tb-big">
+    <div class="ui container">
+        <table class="ui teal compact table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>标签</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each = "tag, iterStat: ${page.content}">
+                <td th:text="${iterStat.count}">1</td>
+                <td th:text="${tag.name}">Java</td>
+                <td>
+                    <a href="#" th:href="@{/admin/tags/{id}/input(id=${tag.id})}" class="ui mini teal basic button">&nbsp;&nbsp; 编辑 &nbsp;&nbsp;</a>
+                    <a href="#" th:href="@{/admin/tags/{id}/delete(id=${tag.id})}" class="ui mini red basic button">删除</a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="6">
+                    <div class="ui mini pagination menu">
+                        <a th:href="@{/admin/tags(page=${page.number}-1)}" class="item m-padded-tb-tiny" th:classappend="${page.first} ? 'disabled'"><<</a>
+                        <span class="item">
+                    页数&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="detail" th:text="${page.totalPages==0} ? 0 : ${page.number+1}"></span>&nbsp;&nbsp;/&nbsp;&nbsp;<span th:text="${page.totalPages}"></span>
+                  </span>
+                        <a th:href="@{/admin/tags(page=${page.number}+1)}" class="item m-padded-tb-tiny" th:classappend="${page.last} ? 'disabled'">>> </a>
+                    </div>
+                    <a href="" th:href="@{/admin/tags/input}" class="ui mini right floated teal basic button">新增</a>
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+            <i class="close icon"></i>
+            <div class="header" th:text="${message}">test</div>
+        </div>
+
+    </div>
+</div>
+
+<!--底部footer-->
+<footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="../../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 110px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted link header m-text-thin m-text-spaced">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户图片</a>
+                    <a href="#" class="item">用户简介</a>
+                    <a href="#" class="item">用户介绍</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted link header m-text-thin m-text-spaced">联系方式</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">手机号：13673456959</a>
+                    <a href="#" class="item">QQ：1807968331</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted link header m-text-thin m-text-spaced">博客</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">世纪哥胡乱嫩的博客，喜欢就看，不喜欢滚蛋！！！！！！！！</p>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">世纪哥2022.1.18</p>
+    </div>
+
+</footer>
+
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+
+<script>
+    $('.menu-toggle').click(function(){
+        $('.m-item').toggleClass('m-mobile-show');
+        $("p").toggleClass("main");
+    });
+
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+    $('.message .close')
+        .on('click', function() {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
+</script>
+</body>
+</html>
